@@ -29,6 +29,11 @@ class CustomUser(AbstractUser):
 class Balance(models.Model):
     """Модель баланса пользователя."""
 
+    value = models.IntegerField(
+        verbose_name='Значение',
+        default=1000
+    )
+    
     # TODO
 
     class Meta:
