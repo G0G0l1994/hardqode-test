@@ -1,18 +1,20 @@
 from django.db import models
 
-from users.models import CustomUser
+
 
 
 class Course(models.Model):
     """Модель продукта - курса."""
-
+    
     author = models.CharField(
         max_length=250,
         verbose_name='Автор',
     )
     title = models.CharField(
+        
         max_length=250,
         verbose_name='Название',
+        null=True
     )
     start_date = models.DateTimeField(
         auto_now=False,
@@ -29,16 +31,18 @@ class Course(models.Model):
         default=True
     )
  
-
+    
     # TODO
 
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
         ordering = ('-id',)
-
+        
+        
     def __str__(self):
         return self.title
+    
 
 
 class Lesson(models.Model):
@@ -54,7 +58,8 @@ class Lesson(models.Model):
     )
 
     course = models.ForeignKey(
-        Course, 
+        Course,
+        name = 'Course', 
         verbose_name='Курс',
         on_delete=models.CASCADE,
         null=True
@@ -78,10 +83,6 @@ class Group(models.Model):
         verbose_name='Имя группы',
         max_length=100
     )
-    members = models.ManyToManyField(
-        CustomUser,
-        through='Membership'
-    )
     free_seats = models.IntegerField(
         verbose_name='Свободные_места',
         default=10
@@ -98,12 +99,4 @@ class Group(models.Model):
         verbose_name_plural = 'Группы'
         ordering = ('-id',)
 
-class Membership(models.Model):
-    """Членство в группе."""
 
-    person = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group,on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Участие'
-        ordering = ('id',)
