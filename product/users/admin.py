@@ -10,11 +10,10 @@ class UsersAdmin(admin.ModelAdmin):
 @admin.register(Subscription)
 class SubscribeAdmin(admin.ModelAdmin):
     list_display = ['user','course','active',]
-    pass
+    
 
 
 @admin.register(Balance)
 class BalanceAdmin(admin.ModelAdmin):
     list_display = ['users','value']
 
-    

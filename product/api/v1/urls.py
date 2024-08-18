@@ -20,6 +20,7 @@ urlpatterns = [
     path("", include(v1_router.urls)),
     path("auth/", include('djoser.urls')),
     path("auth/", include('djoser.urls.authtoken')),
+    path('userslist/', UserViewSet.as_view({'get': 'list'}), name = 'userlist')
     # Создание нового пользователя api/v1/auth/users/
     # Авторизация пользователя     api/v1/auth/token/login/
 ]
