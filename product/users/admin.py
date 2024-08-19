@@ -15,5 +15,5 @@ class SubscribeAdmin(admin.ModelAdmin):
 
 @admin.register(Balance)
 class BalanceAdmin(admin.ModelAdmin):
-    list_display = ['users','value']
+    list_display = ['user_balance','value']
 

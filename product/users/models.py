@@ -38,7 +38,7 @@ class Balance(models.Model):
         verbose_name='Значение баланса',
         default=1000
     )
-    users = models.ForeignKey(
+    user_balance = models.ForeignKey(
         CustomUser, 
         verbose_name='Баланс', 
         related_name='user_balance',
@@ -74,9 +74,6 @@ class Subscription(models.Model):
     )
     
 
-    
-
-    # TODO
 
     class Meta:
         verbose_name = 'Подписка'

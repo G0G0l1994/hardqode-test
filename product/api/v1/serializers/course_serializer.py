@@ -15,11 +15,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = (
-            'title',
-            'link',
-            'course'
-        )
+        fields = '__all__'
 
 
 class CreateLessonSerializer(serializers.ModelSerializer):
@@ -78,12 +74,13 @@ class MiniLessonSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     """Список курсов."""
-
+    
     lessons = MiniLessonSerializer(many=True, read_only=True)
     lessons_count = serializers.SerializerMethodField(read_only=True)
     students_count = serializers.SerializerMethodField(read_only=True)
     groups_filled_percent = serializers.SerializerMethodField(read_only=True)
     demand_course_percent = serializers.SerializerMethodField(read_only=True)
+    
 
     def get_lessons_count(self, obj):
         """Количество уроков в курсе."""
@@ -114,11 +111,14 @@ class CourseSerializer(serializers.ModelSerializer):
             'demand_course_percent',
             'students_count',
             'groups_filled_percent',
+            'is_active',
         )
 
 
 class CreateCourseSerializer(serializers.ModelSerializer):
     """Создание курсов."""
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Course
+        fields = "__all__"
